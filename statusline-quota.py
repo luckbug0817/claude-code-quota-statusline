@@ -99,10 +99,14 @@ def main():
         parts.append(T["unavailable"])
 
     cw = data.get("context_window") or {}
-    size = cw.get("context_window_size")
-    cur = (cw.get("current_usage") or {}).get("input_tokens")
-    if size and cur is not None:
-        parts.append(f"🧠 {cur / size * 100:.0f}%")
+    pct = cw.get("used_percentage")
+    if pct is None:
+        size = cw.get("context_window_size")
+        used = cw.get("total_input_tokens")
+        if size and used is not None:
+            pct = used / size * 100
+    if pct is not None:
+        parts.append(f"🧠 {pct:.0f}%")
 
     print(" | ".join(parts))
 
