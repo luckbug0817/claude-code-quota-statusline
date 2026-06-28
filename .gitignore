@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+cc-statusline-input.json
+statusline-input.json
