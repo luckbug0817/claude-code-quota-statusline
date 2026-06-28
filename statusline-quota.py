@@ -38,8 +38,12 @@ STRINGS = {
 T = STRINGS.get(LANG, STRINGS["en"])
 
 
-def fmt_reset(ts):
-    """Return a compact 'until reset' string like '4h21m' or '12m'."""
+def fmt_reset(ts, days=False):
+    """Return a compact 'until reset' string.
+
+    days=False -> hours/minutes, e.g. '4h21m' or '12m'.
+    days=True  -> days/hours,    e.g. '3d19h' or '7h'.
+    """
     if not ts:
         return ""
     ts = float(ts)
@@ -48,11 +52,14 @@ def fmt_reset(ts):
     secs = int(ts - time.time())
     if secs <= 0:
         return ""
+    if days:
+        d, h = secs // 86400, (secs % 86400) // 3600
+        return f"{d}d{h}h" if d else f"{h}h"
     h, m = secs // 3600, (secs % 3600) // 60
     return f"{h}h{m}m" if h else f"{m}m"
 
 
-def window_segment(emoji, label, win):
+def window_segment(emoji, label, win, reset_in_days=False):
     """Format one usage window (5h / weekly) as 'emoji label 🟢NN% left (reset)'."""
     if not win:
         return None
@@ -60,9 +67,9 @@ def window_segment(emoji, label, win):
     if used is None:
         return None
     left = max(0, 100 - used)
-    icon = "🟢" if left > 30 else ("🟡" if left > 10 else "🔴")
+    icon = "🟢" if left > 50 else ("🟡" if left >= 20 else "🔴")
     s = f"{emoji} {label} {icon}{T['left'].format(left=left)}"
-    reset = fmt_reset(win.get("resets_at"))
+    reset = fmt_reset(win.get("resets_at"), days=reset_in_days)
     if reset:
         s += " " + T["reset"].format(reset=reset)
     return s
@@ -90,7 +97,7 @@ def main():
 
     rl = data.get("rate_limits") or {}
     s5 = window_segment("⏳", T["5h"], rl.get("five_hour"))
-    s7 = window_segment("📅", T["wk"], rl.get("seven_day"))
+    s7 = window_segment("📅", T["wk"], rl.get("seven_day"), reset_in_days=True)
     if s5:
         parts.append(s5)
     if s7:

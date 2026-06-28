@@ -7,16 +7,16 @@ It shows how much of your **usage limits** are left — the rolling **5-hour win
 ![Claude Code quota statusline preview](preview.png)
 
 ```
-🤖 Opus 4.8 | ⏳ 5h 🟢82% left (4h21m) | 📅 wk 🟢78% left (91h) | 🧠 12%
+🤖 Opus 4.8 | ⏳ 5h 🟢82% left (4h21m) | 📅 wk 🟢78% left (3d19h) | 🧠 12%
 ```
 
 | Segment | Meaning |
 | --- | --- |
 | 🤖 | Active model |
-| ⏳ 5h | Remaining quota in the rolling 5-hour window + time until reset |
-| 📅 wk | Remaining quota in the weekly (7-day) window + time until reset |
+| ⏳ 5h | Remaining quota in the rolling 5-hour window + time until reset (h/m) |
+| 📅 wk | Remaining quota in the weekly (7-day) window + time until reset (d/h) |
 | 🧠 | Current context-window usage |
-| 🟢 / 🟡 / 🔴 | >30% / >10% / ≤10% remaining |
+| 🟢 / 🟡 / 🔴 | >50% / 20–50% / <20% remaining |
 
 ## How it works
 
@@ -77,7 +77,7 @@ Set `CC_QUOTA_LANG=zh` for Chinese labels (default is English):
 ```
 
 ```
-🤖 Opus 4.8 | ⏳ 5h 🟢76%剩 (4h12m重置) | 📅 周 🟢78%剩 (91h12m重置) | 🧠 0%
+🤖 Opus 4.8 | ⏳ 5h 🟢76%剩 (4h12m重置) | 📅 周 🟢78%剩 (3d19h重置) | 🧠 9%
 ```
 
 ## Debugging
