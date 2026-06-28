@@ -4,6 +4,8 @@ A tiny [Claude Code](https://claude.com/claude-code) statusline for **subscripti
 
 It shows how much of your **usage limits** are left — the rolling **5-hour window** and the **weekly (7-day) window** — instead of the per-token dollar estimates that tools like `ccusage` show (which don't mean anything on a subscription plan).
 
+![Claude Code quota statusline preview](preview.png)
+
 ```
 🤖 Opus 4.8 | ⏳ 5h 🟢82% left (4h21m) | 📅 wk 🟢78% left (91h) | 🧠 12%
 ```
