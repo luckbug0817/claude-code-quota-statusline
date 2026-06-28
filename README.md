@@ -42,7 +42,7 @@ Python 3 (standard library only).
 
    ```bash
    mkdir -p ~/.claude/scripts
-   curl -fsSL https://raw.githubusercontent.com/suntoflyer/claude-code-quota-statusline/main/statusline-quota.py \
+   curl -fsSL https://raw.githubusercontent.com/luckbug0817/claude-code-quota-statusline/main/statusline-quota.py \
      -o ~/.claude/scripts/statusline-quota.py
    ```
 
